@@ -165,7 +165,7 @@ Other
 Links
 */
 .reveal a {
-  color: #EF7D03;
+  color: #20B2A6;
   text-decoration: none;
 }
 .reveal a:hover {}
@@ -182,16 +182,16 @@ Images
 Navigation controls
 */
 .reveal .controls .navigate-left, .reveal .controls .navigate-left.enabled, .reveal .controls .navigate-left.enabled:hover {
-  border-right-color: #EF7D03;
+  border-right-color: #20B2A6;
 }
 .reveal .controls .navigate-right, .reveal .controls .navigate-right.enabled, .reveal .controls .navigate-right.enabled:hover {
-  border-left-color: #EF7D03;
+  border-left-color: #20B2A6;
 }
 .reveal .controls .navigate-up, .reveal .controls .navigate-up.enabled, .reveal .controls .navigate-up.enabled:hover {
-  border-bottom-color: #EF7D03;
+  border-bottom-color: #20B2A6;
 }
 .reveal .controls .navigate-down, .reveal .controls .navigate-down.enabled, .reveal .controls .navigate-down.enabled:hover {
-  border-top-color: #EF7D03;
+  border-top-color: #20B2A6;
 }
 
 /*
