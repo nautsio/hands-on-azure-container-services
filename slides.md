@@ -84,13 +84,11 @@ run the docker image mvanholsteijn/paas-monitor:latest  on your local machine an
 
 
 !NOTE
-```
-docker-machine create -d virtualbox  dev
-eval $(docker-machine env dev)
-docker run -d --publish :1337:1337 --env "RELEASE=v1" --env "MESSAGE=hello from docker machine." mvanholsteijn/paas-monitor:latest
-open http:$(echo $DOCKER_HOST |cut -d: -f2):1337
-docker stop $(docker ps -ql)
-```
+- docker-machine create -d virtualbox  dev
+- eval $(docker-machine env dev)
+- docker run -d --publish :1337:1337 --env "RELEASE=v1" --env "MESSAGE=hello from docker machine." mvanholsteijn/paas-monitor:latest
+- open http:$(echo $DOCKER_HOST |cut -d: -f2):1337
+- docker stop $(docker ps -ql)
 
 !SLIDE
 # Local shellinabox application
@@ -109,11 +107,9 @@ disable SSL and specify a username and password. Login through the web interface
 
 
 !NOTE
-```
-docker run -d --publish :4200:4200 -e SIAB_SSL=false -e SIAB_USER=guest -e SIAB_PASSWORD=password -e SIAB_SUDO=true mvanholsteijn/shellinabox:latest
-open http:$(echo $DOCKER_HOST |cut -d: -f2):4200
-docker stop $(docker ps -ql)
-```
+- docker run -d --publish :4200:4200 -e SIAB_SSL=false -e SIAB_USER=guest -e SIAB_PASSWORD=password -e SIAB_SUDO=true mvanholsteijn/shellinabox:latest
+- open http:$(echo $DOCKER_HOST |cut -d: -f2):4200
+- docker stop $(docker ps -ql)
 
 !SLIDE
 # Deploy ACS - DC/OS
@@ -144,10 +140,8 @@ the diagram below shows you the deployment diagram of your cluster. The public D
 </p>
 
 !NOTE
-```
-sudo ssh -p 2200 -i $HOME/.ssh/id_rsa -N -L 80:localhost:80 <cuser>@<dns-prefix>mgmt.westeurope.cloudapp.azure.com -
-open http://localhost
-```
+- sudo ssh -p 2200 -i $HOME/.ssh/id_rsa -N -L 80:localhost:80 <cuser>@<dns-prefix>mgmt.westeurope.cloudapp.azure.com -
+- open http://localhost
 
 See [Connect to ACS cluster](https://azure.microsoft.com/en-us/documentation/articles/container-service-connect/) for full details.
 
