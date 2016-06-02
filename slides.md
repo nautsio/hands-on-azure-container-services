@@ -191,7 +191,7 @@ point your browser at the deployed application and scale up and scale down using
 - set Container Port to 1337
 - set Environment variables RELEASE=v2 and MESSAGE=hello azure
 - set label HAPROXY_GROUP to external
-- set label HAPROXY_0_VHOST to paas-monitor.$lt;public-ip-agent>.xip.io
+- set label HAPROXY_0_VHOST to paas-monitor.<public-ip-agent>.xip.io
 - set Health Check Path to /health with a grace = 30s, interval = 10s and timeout = 2s
 - Your json should look something like this [marathon task definition definition](https://raw.githubusercontent.com/mvanholsteijn/paas-monitor/master/marathon.json)
 
@@ -263,10 +263,10 @@ Deploy the shellinabox and use dig to find the DNS A and SRV records for paas-mo
 - set env SIAB_USER  
 - set env SIAB_PASSWORD  
 - set label HAPROXY_GROUP to external
-- set label HAPROXY_0_VHOST shell.$lt;public-ip-agent>.xip.io
+- set label HAPROXY_0_VHOST shell.<public-ip-agent>.xip.io
 - set Health Check Path to /health with a grace = 30s, interval = 10s and timeout = 2s
 - Your json should look something like this [marathon task definition definition](https://raw.githubusercontent.com/mvanholsteijn/shellinabox-container/master/marathon.json)
-- point your browser at http://shell.$lt;public-ip-agent>.xip.io and login with $SIAB_USER and $SIAB_PASSWORD
+- point your browser at http://shell.<public-ip-agent>.xip.io and login with $SIAB_USER and $SIAB_PASSWORD
 - type: dig paas-monitor.marathon.mesos
 - type: dig _paas-monitor._tcp.marathon.mesos
 
