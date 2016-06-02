@@ -38,7 +38,7 @@ provides routing and load balancing functionality to deployed applications.
 !SUB
 # Chronos
 the cron subsystem of Mesos. It will allow you to periodically execute jobs.
-<center>![Mesos](img/chronos.png)</center>
+<center>![Mesos](img/chronos.jpeg)</center>
 
 !SLIDE
 # Hands-on 
@@ -53,12 +53,16 @@ the cron subsystem of Mesos. It will allow you to periodically execute jobs.
 
 !SLIDE
 # Hands-on
-- local paas-monitor application
+- local applications
+  - paas-monitor 
+  - shellinabox 
 - Setup a Azure Container Service 
-- Install marathon-lb package
-- Deploy paas-monitor application
-- Deploy ASP.net Core application
-- Scaling
+  - Install marathon-lb package
+  - Deploy paas-monitor
+  - Rolling upgrade paas-monitor
+  - Service discovery
+  - Deploy ASP.net Core application
+  - Scaling
 
 !SLIDE
 # Local paas-monitor application
@@ -85,6 +89,29 @@ docker-machine create -d virtualbox  dev
 eval $(docker-machine env dev)
 docker run -d --publish :1337:1337 --env "RELEASE=v1" --env "MESSAGE=hello from docker machine." mvanholsteijn/paas-monitor:latest
 open http:$(echo $DOCKER_HOST |cut -d: -f2):1337
+docker stop $(docker ps -ql)
+```
+
+!SLIDE
+# Local shellinabox application
+
+<p style="font-size: 80%">
+shellinabox provides a shell with a web interface so you
+can safely snoop around on a machine.
+<br/>
+<hr/>
+</p>
+<p style="font-size: 80%">
+** Assignment : **
+run the docker image [mvanholsteijn/shellinabox:latest](https://github.com/mvanholsteijn/shellinabox-container) on your local machine and point your browser to it.
+disable SSL and specify a username and password. Login through the web interface and look around.
+</p>
+
+
+!NOTE
+```
+docker run -d --publish :4200:4200 -e SIAB_SSL=false -e SIAB_USER=guest -e SIAB_PASSWORD=password -e SIAB_SUDO=true mvanholsteijn/shellinabox:latest
+open http:$(echo $DOCKER_HOST |cut -d: -f2):4200
 docker stop $(docker ps -ql)
 ```
 
@@ -118,7 +145,7 @@ the diagram below shows you the deployment diagram of your cluster. The public D
 
 !NOTE
 ```
-sudo ssh -i $HOME/.ssh/id_rsa -N -L 80:localhost:80 &lt;user>@&lt;dns-prefix>mgmt.westeurope.cloudapp.azure.com -p 2200
+sudo ssh -p 2200 -i $HOME/.ssh/id_rsa -N -L 80:localhost:80 <cuser>@<dns-prefix>mgmt.westeurope.cloudapp.azure.com -
 open http://localhost
 ```
 
@@ -180,6 +207,7 @@ to scale up use the console
 - Click 'Scale Application'
 - Increase / decrease and watch the effect in your browser
 
+
 !SUB
 Upgrading the application
 <p style="font-size: 75%">
@@ -219,11 +247,44 @@ dcos-agent-private-4D3DE637-vmss0
 
 
 !SLIDE
+Service Discovery - Marathon-dns
+<p style="font-size: 75%">
+marathon-dns has registered A and SRV DNS records for paas-monitor. See [marathon-dns service naming](https://mesosphere.github.io/mesos-dns/docs/naming.html) for dtetails.
+</p>
+<p style="font-size=75%">
+** Assignment: **
+Deploy the shellinabox and use dig to find the DNS A and SRV records for paas-monitor.
+</p>
+
+
+!NOTE
+- goto http://localhost/marathon
+- Add application
+- set Id to 'shell'
+- set CPUs, Memory, Disk and Instances to 0.25, 128, 0 and 1 respectively
+- set Docker Container to 'mvanholsteijn/shellinabox:latest' 
+- set Network to 'BRIDGE'
+- set Container Port to 4200
+- set env SIAB_SLL to false
+- set env SIAB_USER  
+- set env SIAB_PASSWORD  
+- set label HAPROXY_GROUP to external
+- set label HAPROXY_0_VHOST shell.$lt;public-ip-agent>.xip.io
+- set Health Check Path to /health with a grace = 30s, interval = 10s and timeout = 2s
+- Your json should look something like this [marathon task definition definition](https://raw.githubusercontent.com/mvanholsteijn/shellinabox-container/master/marathon.json)
+- point your browser at http://shell.$lt;public-ip-agent>.xip.io and login with $SIAB_USER and $SIAB_PASSWORD
+- type: dig paas-monitor.marathon.mesos
+- type: dig _paas-monitor._tcp.marathon.mesos
+
+
+!SLIDE
 # Scaling machine
 <p style="font-size: 75%">
 ** Assignment: ** Scale the public virtual machine scaling set to 2 and the private to 5. How many resources does Mesos now report?
 scale the number of marathon-lb instances to 2. Scale the number of paas-monitor instances to 10. 
 Perform a shutdown of a machine in the private scaling set. How fast does it recover?
+
+Advanced topic: We did not get to this either :-)
 </p>
 
 !NOTE
@@ -235,3 +296,7 @@ Scaling the VMSS is pretty difficult..
 - scale the paas-monitor to 10 instances
 - reduce the private scaling set 'dcos-agent-private-&lt;magic-number>-vmss0' to 2 instances
 - reduce the public scaling set 'dcos-agent-private-&lt;magic-number>-vmss0' to 1 instance
+
+
+!SLIDE
+<center><div style="width: 75%; height: auto;"><img src="img/xpirit.png"/></div></center>
