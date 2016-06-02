@@ -224,7 +224,7 @@ Rolling upgrade
 <p style="font-size: 75%">
 Marathon provides different [upgradeStrategies](https://mesosphere.github.io/marathon/docs/rest-api.html). 
 </p>
-<p style="font-size=75%">
+<p style="font-size:75%">
 ** Assignment: **
 Configure the application to do a rolling upgrade of instances to RELEASE=v3.  Watch the behaviour of the application in the browser and in the marathon ui. 
 How does this compare to the previous upgrade?
@@ -251,7 +251,7 @@ Service Discovery - Marathon-dns
 <p style="font-size: 75%">
 marathon-dns has registered A and SRV DNS records for paas-monitor. See [marathon-dns service naming](https://mesosphere.github.io/mesos-dns/docs/naming.html) for dtetails.
 </p>
-<p style="font-size=75%">
+<p style="font-size:75%">
 ** Assignment: **
 Deploy the shellinabox and use dig to find the DNS A and SRV records for paas-monitor.
 </p>
