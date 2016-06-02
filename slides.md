@@ -209,7 +209,7 @@ to scale up use the console
 
 
 !SUB
-Upgrading the application
+# Upgrading the application
 <p style="font-size: 75%">
 ** Assignment: **
 Change the paas-monitor configuration environment variable RELEASE to v2.1. Redeploy this version
@@ -220,7 +220,7 @@ and watch the behaviour of the application in the browser and in the marathon ui
 
 
 !SUB
-Rolling upgrade
+# Rolling upgrade
 <p style="font-size: 75%">
 Marathon provides different [upgradeStrategies](https://mesosphere.github.io/marathon/docs/rest-api.html). 
 </p>
@@ -247,7 +247,7 @@ dcos-agent-private-4D3DE637-vmss0
 
 
 !SLIDE
-Service Discovery - Marathon-dns
+# Service Discovery - Marathon-dns
 <p style="font-size: 75%">
 marathon-dns has registered A and SRV DNS records for paas-monitor. See [marathon-dns service naming](https://mesosphere.github.io/mesos-dns/docs/naming.html) for dtetails.
 </p>
