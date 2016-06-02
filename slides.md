@@ -278,7 +278,8 @@ Deploy the shellinabox and use dig to find the DNS A and SRV records for paas-mo
 
 
 !SLIDE
-# Scaling machine
+# Scaling machines
+Marathon will automatically reschedule applications when machines go down.
 <p style="font-size: 75%">
 ** Assignment: ** Scale the public virtual machine scaling set to 2 and the private to 5. How many resources does Mesos now report?
 scale the number of marathon-lb instances to 2. Scale the number of paas-monitor instances to 10. 
