@@ -9,50 +9,72 @@
 </center>
 
 !SLIDE
-# Azure Container Service
+### Azure Container Service 
 <center>![ACS](img/acs.png)</center>
 
 !SLIDE
-# Azure Container Service DC/OS
+### Azure Container Service DC/OS
 
 !SUB
-# Mesos
+### Mesos
 creates a single Operating System Kernel spanning all machines.
 <center>![Mesos](img/mesos.png)</center>
 
 !SUB
-# Marathon
+### Marathon
 the init system of Mesos. It will make sure that you will keep your applications running.
 <center>![Mesos](img/marathon.png)</center>
 
 !SUB
-# marathon-dns
+### mesos-dns
 provides DNS based service discovery of deployed applications.
 <center>![Mesos](img/marathon-dns.png)</center>
 
 !SUB
-# marathon-lb
+### marathon-lb
 provides routing and load balancing functionality to deployed applications.
 <center>![Mesos](img/marathon-lb.png)</center>
 
 !SUB
-# Chronos
+### Chronos
 the cron subsystem of Mesos. It will allow you to periodically execute jobs.
 <center>![Mesos](img/chronos.jpeg)</center>
 
 !SLIDE
-# Hands-on 
+### Hands-on 
 - generic instruction, try to solve it yourself
 - are you stuck? press 's' and check the presenter notes for typing instructions
 
-## Prerequisites
+### Prerequisites
 - Microsoft Azure trial account > 20 cores quote
 - Docker Machine installed
 - putty / ssh-agent installed
 
 
 !SLIDE
-# Hands-on
+### The hands-on scene
+This is your end result today!
+<center>![DC/OS on ACS](img/dcos-test-deployment-apps.png)</center>
+
+!SUB
+### paas monitor application
+A web application that continuously calls a backend service. Each instance of 
+the deployed service that responds results in an new row.
+instances that have been killed, will remain in the table until a refresh. The environment 
+variables 'RELEASE' and 'MESSAGE' can be set to mimick new 
+application releases.
+<center>![paas-monitor on DC/OS](img/paas-monitor-full.png)</center>
+
+!SUB
+### shellinabox application
+A web application that gives access to an interactive shell. the environment
+variables 'SIAB_USER' and 'SIAB_PASSWORD' allow you to set the username
+and password with which you can log in. network utilities have been installed
+so that you can do DNS lookups. 
+<center>![paas-monitor on DC/OS](img/shellinabox.png)</center>
+
+!SLIDE
+### Hands-on
 - local applications
   - paas-monitor 
   - shellinabox 
@@ -65,11 +87,12 @@ the cron subsystem of Mesos. It will allow you to periodically execute jobs.
   - Scaling
 
 !SLIDE
-# Local paas-monitor application
+### Local paas-monitor application
 
 <p style="font-size: 80%">
 paas-monitor is a small docker application that allows you to see
-the effect of rolling upgrades, scaling, failures etc.
+the effect of rolling upgrades, scaling, failures etc. the environment variables
+'RELEASE' and 'MESSAGE' can be used to mimick new application releases.
 <br/>
 <hr/>
 <p style="font-size: 80%">
@@ -91,11 +114,13 @@ run the docker image mvanholsteijn/paas-monitor:latest  on your local machine an
 - docker stop $(docker ps -ql)
 
 !SLIDE
-# Local shellinabox application
+### Local shellinabox application
 
 <p style="font-size: 80%">
 shellinabox provides a shell with a web interface so you
-can safely snoop around on a machine.
+can safely snoop around on a machine. The environment variables 'SIAB_USER' and 'SIAB_PASSWORD' 
+allow you to set the username and password with which you can log in.  The environment variable 'SIAB_SSL'  controls
+encrytion by the shell.
 <br/>
 <hr/>
 </p>
@@ -112,10 +137,10 @@ disable SSL and specify a username and password. Login through the web interface
 - docker stop $(docker ps -ql)
 
 !SLIDE
-# Deploy ACS - DC/OS
+### Deploy ACS - DC/OS
 <p style="font-size: 80%">
 ** Assignment : **
-goto the Azure portal and create a DC/OS test cluster
+goto the  [Azure Portal](https://portal.azure.com/) and create a DC/OS test cluster
 </p>
 <center>![DC/OS on ACS](img/azure-create.png)</center>
 
@@ -130,7 +155,7 @@ See [Deploy an ACS Cluster](https://azure.microsoft.com/en-us/documentation/arti
 
 
 !SUB
-# Connect to ACS - DC/OS
+### Connect to ACS - DC/OS
 <p style="font-size: 75%">
 ** Assignment: **
 Point your browser to the DC/OS console via an SSH tunnel to your mesos master machine at &lt;username>@&lt;dns-prefix>mgmt.westeurope.cloudapp.azure.com. 
@@ -147,7 +172,7 @@ See [Connect to ACS cluster](https://azure.microsoft.com/en-us/documentation/art
 
 
 !SUB
-# Explore the Console
+### Explore the Console
 <p style="font-size: 75%">
 ** Assignment: **
 Explore the DC/OS consoles: http://localhost, http://localhost/marathon and http://localhost/mesos. How many machines can you find in the cluster? How much resources does Mesos have available in total?
@@ -155,7 +180,7 @@ Explore the DC/OS consoles: http://localhost, http://localhost/marathon and http
 <center>![DC/OS Console](img/dcos-console.png)</center>
 
 !SLIDE
-# Install the marathon loadbalancer
+### Install the marathon loadbalancer
 <p style="font-size: 75%">
 ** Assignment: **
 On the console, goto the DC/OS Universe and install the marathon-lb with 0.5 cpu and 256Mb memory.
@@ -172,7 +197,7 @@ On the console, goto the DC/OS Universe and install the marathon-lb with 0.5 cpu
 - Click review and install.
 
 !SLIDE
-# Deploy the paas-monitor
+### Deploy the paas-monitor
 <p style="font-size: 75%">
 ** Assignment: **
 Deploy the paas-monitor docker application using [marathon UI](http://localhost/marathon) configured to handle requests for http://paas-monitor.&lt;public-ip-agent-lb>.xip.io.  with 0.25 cpu, 128 mb memory. Add a health check on /status with reasonable timeout for a fast application.
@@ -203,7 +228,7 @@ to scale up use the console
 
 
 !SUB
-# Upgrading the application
+### Upgrading the application
 <p style="font-size: 75%">
 ** Assignment: **
 Change the paas-monitor configuration environment variable RELEASE to v2.1. Redeploy this version
@@ -214,7 +239,7 @@ and watch the behaviour of the application in the browser and in the marathon ui
 
 
 !SUB
-# Rolling upgrade
+### Rolling upgrade
 <p style="font-size: 75%">
 Marathon provides different [upgradeStrategies](https://mesosphere.github.io/marathon/docs/rest-api.html). 
 </p>
@@ -241,7 +266,7 @@ dcos-agent-private-4D3DE637-vmss0
 
 
 !SLIDE
-# Service Discovery - Marathon-dns
+### Service Discovery - Marathon-dns
 <p style="font-size: 75%">
 marathon-dns has registered A and SRV DNS records for paas-monitor. See [marathon-dns service naming](https://mesosphere.github.io/mesos-dns/docs/naming.html) for dtetails.
 </p>
@@ -272,7 +297,7 @@ Deploy the shellinabox and use dig to find the DNS A and SRV records for paas-mo
 
 
 !SLIDE
-# Scaling machines
+### Scaling machines
 Marathon will automatically reschedule applications when machines go down.
 <p style="font-size: 75%">
 ** Assignment: ** Scale the public virtual machine scaling set to 2 and the private to 5. How many resources does Mesos now report?
