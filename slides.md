@@ -284,7 +284,7 @@ Deploy the shellinabox and use dig to find the DNS A and SRV records for paas-mo
 - set Docker Container to 'mvanholsteijn/shellinabox:latest' 
 - set Network to 'BRIDGE'
 - set Container Port to 4200
-- set env SIAB_SLL to false
+- set env SIAB_SSL to false
 - set env SIAB_USER  
 - set env SIAB_PASSWORD  
 - set label HAPROXY_GROUP to external
