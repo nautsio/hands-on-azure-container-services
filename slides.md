@@ -266,7 +266,7 @@ dcos-agent-private-4D3DE637-vmss0
 
 
 !SLIDE
-### Service Discovery - Marathon-dns
+### Service Discovery - mesos-dns
 <p style="font-size: 75%">
 marathon-dns has registered A and SRV DNS records for paas-monitor. See [marathon-dns service naming](https://mesosphere.github.io/mesos-dns/docs/naming.html) for dtetails.
 </p>
@@ -293,7 +293,7 @@ Deploy the shellinabox and use dig to find the DNS A and SRV records for paas-mo
 - Your json should look something like this [marathon task definition definition](https://raw.githubusercontent.com/mvanholsteijn/shellinabox-container/master/marathon.json)
 - point your browser at http://shell.&lt;public-ip-agent>.xip.io and login with $SIAB_USER and $SIAB_PASSWORD
 - type: dig paas-monitor.marathon.mesos
-- type: dig _paas-monitor._tcp.marathon.mesos
+- type: dig _paas-monitor._tcp.marathon.mesos SRV
 
 
 !SLIDE
