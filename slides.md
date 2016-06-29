@@ -1,19 +1,22 @@
 <center><div style="width: 75%; height: auto;"><img src="img/xpirit.png"/></div></center>
 <br />
 <center>
+    <td>**To Start** - Create a DC/OS test cluster at https://portal.azure.com/</td>
+</center>
+
+!SLIDE
+<center><div style="width: 75%; height: auto;"><img src="img/xpirit.png"/></div></center>
+<br />
+<center>
 <table>
   <tr>
     <td>**Slides**</td><td>[http://nauts.io/workshop-azure-container-services](http://nauts.io/workshop-azure-container-services)</td>
   </tr>
 </table>
-</center>
-
-!SLIDE
-### Azure Container Service 
-<center>![ACS](img/acs.png)</center>
 
 !SLIDE
 ### Azure Container Service DC/OS
+<center>![ACS](img/acs.png)</center>
 
 !SUB
 ### Mesos
@@ -72,6 +75,15 @@ variables 'SIAB_USER' and 'SIAB_PASSWORD' allow you to set the username
 and password with which you can log in. network utilities have been installed
 so that you can do DNS lookups. 
 <center>![paas-monitor on DC/OS](img/shellinabox.png)</center>
+
+!SUB
+### xip.io
+xip.io is a magic domain name that provides wildcard DNS for any IP address.
+Say your agents public IP address is 52.123.12.45 than you can use 
+the names 'paas-monitor.52.123.12.45.xip.io' and 'shell.42.123.12.45.xip.io'
+to point to your IP address. These names can be used to direct
+the HTTP traffic to the correct application through the marathon-lb.
+
 
 !SLIDE
 ### Hands-on
