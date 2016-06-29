@@ -179,6 +179,7 @@ the diagram below shows you the deployment diagram of your cluster. The public D
 
 !NOTE
 - sudo ssh -p 2200 -i $HOME/.ssh/id_rsa -N -L 80:localhost:80 &lt;cuser>@&lt;dns-prefix>mgmt.westeurope.cloudapp.azure.com -
+- on windows with putty: plink.exe -P 2200 -N -L 80:localhost:80 &lt;cuser>@&lt;dns-prefix>mgmt.westeurope.cloudapp.azure.com -
 - open http://localhost
 
 See [Connect to ACS cluster](https://azure.microsoft.com/en-us/documentation/articles/container-service-connect/) for full details.
