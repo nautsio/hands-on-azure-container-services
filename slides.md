@@ -2,6 +2,7 @@
 <br />
 <center>
     <td>**To Start** - Create a DC/OS test cluster at https://portal.azure.com/</td>
+    <td>**get $250 ** - mail to mmansi@xpirit.com</td>
 </center>
 
 !SLIDE
